@@ -14,7 +14,7 @@ class UserSerializers(serializers.ModelSerializer):
     gender = ToGenderStringCharField()
     class Meta:
         model = User
-        fields = ('user_id', 'address', 'gender', 'name', 'password', 'user_type', 'type')
+        fields = ['user_id', 'address', 'gender', 'name', 'password', 'user_type', 'type']
 
     def get_type(self, obj):
         if obj.user_type == 0:
