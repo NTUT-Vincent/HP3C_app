@@ -1,5 +1,5 @@
 # Create your views here.
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 from user_management.serializers import UserSerializers
 from user_management.models import User
@@ -12,6 +12,7 @@ from rest_framework.parsers import JSONParser
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializers
+
 
 @csrf_exempt
 def user_list(request):
@@ -30,6 +31,7 @@ def user_list(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
 
 @csrf_exempt
 def user_detail(request, pk):
