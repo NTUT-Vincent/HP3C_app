@@ -85,6 +85,9 @@ DATABASES = {
     'httcs': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'httcs.sqlite3',
+        'TEST': {
+                    'NAME': 'auto_tests',
+                }
     }
 }
 

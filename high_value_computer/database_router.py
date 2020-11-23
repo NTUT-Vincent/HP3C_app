@@ -53,6 +53,8 @@ class DatabaseAppsRouter(object):
         Make sure the auth app only appears in the 'auth_db'
         database.
         """
+        if app_label in ('contenttypes'):
+            return True
         if db in DATABASE_MAPPING.values():
             return DATABASE_MAPPING.get(app_label) == db
         elif app_label in DATABASE_MAPPING:
