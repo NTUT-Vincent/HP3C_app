@@ -36,7 +36,7 @@ class GpuSerializer(serializers.ModelSerializer):
         fields = productFields + ['model', 'size']
 
 
-class ProductPolymorphicSerializer(PolymorphicSerializer):
+class ProductSerializer(PolymorphicSerializer):
     resource_type_field_name = 'type'
     model_serializer_mapping = {
         Motherboard: MotherboardSerializer,
