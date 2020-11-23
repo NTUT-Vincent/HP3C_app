@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'user_management',
-    'product_management'
+    'product_management',
+    'transaction_management'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,7 @@ DATABASES = {
 DATABASE_APPS_MAPPING = {
     'user_management': 'httcs',
     'product_management': 'httcs',
+    'transaction_management': 'httcs'
 }
 
 # Password validation
