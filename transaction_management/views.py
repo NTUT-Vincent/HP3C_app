@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
 from transaction_management.models import Coupon, Order
-from transaction_management.serializers import CouponSerializers
+from transaction_management.serializers import CouponSerializers, OrderSerializers
 
 
 @csrf_exempt
@@ -61,12 +61,12 @@ def order_list(request):
     """
     if request.method == 'GET':
         order = Order.objects.all()
-        serializer = CouponSerializers(order, many=True)
+        serializer = OrderSerializers(order, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
         order = JSONParser().parse(request)
-        serializer = CouponSerializers(data=order)
+        serializer = OrderSerializers(data=order)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
@@ -74,7 +74,7 @@ def order_list(request):
 
 
 @csrf_exempt
-def coupon_detail(request, pk):
+def order_detail(request, pk):
     """
     Retrieve, update or delete a code snippet.
     """
@@ -84,12 +84,12 @@ def coupon_detail(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = CouponSerializers(order)
+        serializer = OrderSerializers(order)
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        serializer = CouponSerializers(order, data=data)
+        serializer = OrderSerializers(order, data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)

@@ -6,8 +6,8 @@ from user_management.models import User
 
 class Coupon(models.Model):
     pcode = models.TextField(primary_key=True)
-    coupon_staff = models.ForeignKey(
-        User, models.CASCADE, related_name='coupon_staff', limit_choices_to={'type': [2, 3]})
+    coupon_staff_id = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='coupon_staff')
     type = models.TextField()
     disc_value = models.TextField()
     restrict = models.TextField()
@@ -19,9 +19,9 @@ class Coupon(models.Model):
 class Order(models.Model):
     order_id = models.TextField(primary_key=True)
     order_customer = models.ForeignKey(
-        User, models.CASCADE, related_name='order_customer', limit_choices_to={'type': 1})
+        User, on_delete=models.CASCADE, related_name='order_customer')
     order_staff = models.ForeignKey(
-        User, models.CASCADE, related_name='order_staff', limit_choices_to={'type': [2, 3]})
+        User, on_delete=models.CASCADE, related_name='order_staff')
     address = models.TextField()
     order_date_time = models.TimeField()
     purchase_date_time = models.TimeField()
