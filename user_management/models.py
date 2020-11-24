@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -9,7 +10,7 @@ class User(models.Model):
     gender = models.TextField()
     name = models.TextField()
     password = models.TextField()
-    user_type = models.IntegerField()
+    user_type = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(3)])
 
     class Meta:
         db_table = 'USER'

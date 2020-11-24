@@ -10,6 +10,7 @@ from user_management.models import User
 
 class UserViewTestCase(APITestCase):
     url = '/api/user/'
+    url_detail = '/api/user/id/{}/'
     databases = settings.DATABASES
 
     def setUp(self):
@@ -20,7 +21,11 @@ class UserViewTestCase(APITestCase):
 
     def test_api_user_get(self):
         user_id = 'user0001'
-
+        response = self.client.get(
+            self.url,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get(pk=user_id).user_id, 'user0001')
         self.assertEqual(User.objects.get(pk=user_id).name, 'test_user01')
@@ -70,12 +75,11 @@ class UserViewTestCase(APITestCase):
             "password": "pw0021",
             "gender": "M",
             "address": "TW, KH",
-            "user_type": 3
+            "user_type": 4
         }
-        url = self.url + 'id/' + request_data.get('user_id') +'/'
-        print(url)
+        user_id = 'user0001'
         response = self.client.put(
-            url,
+            self.url_detail.format(user_id),
             request_data,
             format="json"
         )
@@ -83,3 +87,14 @@ class UserViewTestCase(APITestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get(pk=request_data.get('user_id')).user_id, 'user0001')
         self.assertEqual(User.objects.get(pk=request_data.get('user_id')).name, 'test_user21')
+
+    def test_user_delete_success(self):
+        user_id = 'user0001'
+        response = self.client.delete(
+            self.url_detail.format(user_id),
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(User.objects.count(), 0)
+
+    # def test_user_

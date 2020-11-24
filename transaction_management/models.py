@@ -6,7 +6,7 @@ from user_management.models import User
 
 class Coupon(models.Model):
     pcode = models.TextField(primary_key=True)
-    coupon_staff_id = models.ForeignKey(
+    coupon_staff = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='coupon_staff')
     type = models.TextField()
     disc_value = models.TextField()
