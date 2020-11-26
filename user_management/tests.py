@@ -1,6 +1,3 @@
-from django.test import TestCase
-
-# Create your tests here.
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.utils import json
@@ -18,7 +15,7 @@ class UserViewTestCase(APITestCase):
         self.client = APIClient()
         self.user_init = {
             "user_id": 'user0001',
-            "name": 'test_user01',
+            "name": 'User01',
             "password": 'pw123456',
             "gender": 'M',
             "address": 'TW, KH',
@@ -46,8 +43,8 @@ class UserViewTestCase(APITestCase):
     def test_api_user_create_success(self):
         request_data = {
             "user_id": 'user0002',
-            "name": 'test_user02',
-            'password': 'pw0002',
+            "name": 'User02',
+            'password': 'pwd00002',
             "gender": 'M',
             "address": 'TW, KH',
             "user_type": 3
@@ -59,8 +56,7 @@ class UserViewTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 2)
-        self.assertEqual(User.objects.get(pk=request_data.get('user_id')).user_id, 'user0002')
-        self.assertEqual(User.objects.get(pk=request_data.get('user_id')).name, 'test_user02')
+        self.assertEqual(json.loads(response.content), request_data)
 
     def test_api_user_create_duplicate(self):
         request_data = {
@@ -103,16 +99,14 @@ class UserViewTestCase(APITestCase):
         user_id = 'user0001'
         request_data = {
             "user_id": "user0001",
-            "name": "test_user21",
-            "password": "pw0021",
+            "name": "User21",
+            "password": "pwd000021",
             "gender": "M",
             "address": "TW, KH",
             "user_type": 3
         }
-        url = self.detail_url.format(user_id)
-        print(url)
         response = self.client.put(
-            url,
+            self.detail_url.format(user_id),
             request_data,
             format="json"
         )
