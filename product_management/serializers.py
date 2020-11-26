@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from product_management.models import Motherboard, Ram, Ssd, Cpu, Gpu
+from product_management.models import Motherboard, Ram, Ssd, Cpu, Gpu, Manage
 
 productFields = ['type_id', 'type', 'brand', 'quantity', 'price']
 
@@ -45,3 +45,8 @@ class ProductSerializer(PolymorphicSerializer):
         Cpu: CpuSerializer,
         Gpu: GpuSerializer
     }
+
+class ManageSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Manage
+        fields = ['Staff_id', 'Ptype_id']

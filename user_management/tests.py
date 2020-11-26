@@ -75,7 +75,7 @@ class UserViewTestCase(APITestCase):
             "password": "pw0021",
             "gender": "M",
             "address": "TW, KH",
-            "user_type": 4
+            "user_type": 3
         }
         user_id = 'user0001'
         response = self.client.put(
