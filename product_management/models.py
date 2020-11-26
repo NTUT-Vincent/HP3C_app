@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 from polymorphic.models import PolymorphicModel
 from rest_framework.exceptions import ValidationError
+from user_management.models import User
 
 
 def ProductTypeValidator(value):
@@ -19,9 +20,10 @@ def ProductTypeValidator(value):
 class Product(PolymorphicModel):
     type_id = models.TextField(primary_key=True)
     brand = models.TextField(max_length=20)
-    quantity = models.PositiveIntegerField()
-    price = models.PositiveIntegerField()
+    quantity = models.PositiveBigIntegerField()
+    price = models.PositiveBigIntegerField()
     type = models.TextField(validators=[ProductTypeValidator])
+    product_manager = models.ManyToManyField(User, through='Manage')
 
     class Meta:
         db_table = 'PRODUCT'
@@ -71,3 +73,13 @@ class Gpu(Product):
 
     class Meta:
         db_table = 'GPU'
+
+
+class Manage(models.Model):
+    Staff_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='Staff_id')
+    Ptype_id = models.ForeignKey(Product, on_delete=models.CASCADE, db_column='Ptype_id')
+
+    class Meta:
+        db_table = 'MANAGE'
+        unique_together = ("Staff_id", "Ptype_id")
+        models.UniqueConstraint(fields = ['Staff_id', 'Ptype_id'], name = 'Manage Key')
