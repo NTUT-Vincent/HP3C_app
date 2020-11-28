@@ -3,8 +3,18 @@ from django.db import models
 
 # Create your models here.
 from polymorphic.models import PolymorphicModel
+from rest_framework.exceptions import ValidationError
 from user_management.models import User
 
+
+def ProductTypeValidator(value):
+    product_list = [
+        'Motherboard', 'Ram', 'Ssd', 'Cpu', 'Gpu'
+    ]
+    if value not in product_list:
+        raise ValidationError(
+            'Type column only can be "Motherboard", "Ram", "Ssd", "Cpu" or "Gpu".'
+        )
 
 
 class Product(PolymorphicModel):
@@ -12,7 +22,7 @@ class Product(PolymorphicModel):
     brand = models.TextField(max_length=20)
     quantity = models.PositiveBigIntegerField()
     price = models.PositiveBigIntegerField()
-    type = models.TextField()
+    type = models.TextField(validators=[ProductTypeValidator])
     product_manager = models.ManyToManyField(User, through='Manage')
 
     class Meta:
