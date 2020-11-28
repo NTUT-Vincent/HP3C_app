@@ -20,6 +20,7 @@ def user_list(request):
     List all code User, or create a new snippet.
     """
     if request.method == 'GET':
+        user_id = 'staff001'
         user = User.objects.all()
         serializer = UserSerializers(user, many=True)
         return JsonResponse(serializer.data, safe=False)

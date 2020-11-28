@@ -82,9 +82,9 @@ def manage_list(request):
 def manage_detail(request, **kwarg):
     """
     Retrieve, update or delete a code snippet.
-    """
-    staff_id = kwarg.get('staff_id')
-    ptype_id = kwarg.get('ptype_id')
+    # """
+    staff_id = request.GET.get('Staff_id')
+    ptype_id = request.GET.get('Ptype_id')
     print(staff_id)
     
     try:
