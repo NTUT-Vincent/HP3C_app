@@ -11,7 +11,7 @@ class Coupon(models.Model):
     coupon_staff = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='coupon_staff')
     type = models.TextField()
-    disc_value = models.TextField()
+    disc_value = models.FloatField()
     restrict = models.TextField()
 
     class Meta:
@@ -26,9 +26,9 @@ class Order(models.Model):
         User, on_delete=models.CASCADE, related_name='order_staff')
     coupon_code = models.ForeignKey(Coupon, on_delete=models.CASCADE, related_name='coupon_code')
     address = models.TextField()
-    order_date_time = models.TimeField()
-    purchase_date_time = models.TimeField()
-    delivered_date_time = models.TimeField()
+    order_date_time = models.DateTimeField()
+    payment = models.TextField()
+    delivered_date_time = models.DateTimeField()
     deliver_type = models.TextField()
     status = models.TextField()
 

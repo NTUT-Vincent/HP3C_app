@@ -14,7 +14,7 @@ class OrderSerializers(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['order_id', 'order_customer', 'order_staff', 'coupon_code','address', 'order_date_time',
-                  'purchase_date_time', 'delivered_date_time', 'deliver_type', 'status']
+                  'payment', 'delivered_date_time', 'deliver_type', 'status']
 
 class LineItemSerializers(serializers.ModelSerializer):
     class Meta:

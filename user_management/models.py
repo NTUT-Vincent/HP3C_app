@@ -20,7 +20,7 @@ class User(models.Model):
         primary_key=True, validators=[MinLengthValidator(3), MaxLengthValidator(12), alphanumericValidator])
     address = models.TextField()
     gender = models.TextField(validators=[genderValidator])
-    name = models.TextField(validators=[MinLengthValidator(1), MaxLengthValidator(6), alphanumericValidator])
+    name = models.TextField(validators=[MinLengthValidator(1), MaxLengthValidator(20), alphanumericValidator])
     password = models.TextField(validators=[MinLengthValidator(8), MaxLengthValidator(16), alphanumericValidator])
     user_type = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(3)])
 

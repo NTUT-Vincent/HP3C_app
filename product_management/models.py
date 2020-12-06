@@ -24,6 +24,7 @@ class Product(PolymorphicModel):
     price = models.PositiveBigIntegerField()
     type = models.TextField(validators=[ProductTypeValidator])
     product_manager = models.ManyToManyField(User, through='Manage')
+    product_picture = models.TextField()
 
     class Meta:
         db_table = 'PRODUCT'
