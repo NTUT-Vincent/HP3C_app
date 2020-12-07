@@ -18,7 +18,7 @@ def ProductTypeValidator(value):
 
 
 class Product(PolymorphicModel):
-    type_id = models.TextField(primary_key=True)
+    type_id = models.CharField(max_length=30, primary_key=True)
     brand = models.CharField(max_length=20)
     quantity = models.PositiveBigIntegerField()
     price = models.PositiveBigIntegerField()
@@ -41,8 +41,8 @@ class Motherboard(Product):
 
 class Ram(Product):
     gen = models.CharField(max_length=10)
-    size = models.TextField()
-    speed = models.TextField()
+    size = models.CharField(max_length=20)
+    speed = models.CharField(max_length=20)
     channel = models.PositiveIntegerField()
 
     class Meta:
@@ -51,26 +51,26 @@ class Ram(Product):
 
 class Ssd(Product):
     interface = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(1)])
-    size = models.TextField()
-    speed = models.TextField()
+    size = models.CharField(max_length=20)
+    speed = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'SSD'
 
 
 class Cpu(Product):
-    socket = models.TextField()
+    socket = models.CharField(max_length=20)
     cores = models.PositiveIntegerField()
-    clock = models.TextField()
-    cache = models.TextField()
+    clock = models.CharField(max_length=20)
+    cache = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'CPU'
 
 
 class Gpu(Product):
-    model = models.TextField()
-    size = models.TextField()
+    model = models.CharField(max_length=30)
+    size = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'GPU'

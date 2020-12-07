@@ -7,10 +7,10 @@ from product_management.models import Product
 
 
 class Coupon(models.Model):
-    pcode = models.TextField(primary_key=True)
+    pcode = models.CharField(max_length=30, primary_key=True)
     coupon_staff = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='coupon_staff')
-    type = models.TextField()
+    type = models.CharField(max_length=20)
     disc_value = models.FloatField()
     restrict = models.TextField()
 
@@ -19,18 +19,18 @@ class Coupon(models.Model):
 
 
 class Order(models.Model):
-    order_id = models.TextField(primary_key=True)
+    order_id = models.CharField(max_length = 30, primary_key=True)
     order_customer = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='order_customer')
     order_staff = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='order_staff')
     coupon_code = models.ForeignKey(Coupon, on_delete=models.CASCADE, related_name='coupon_code')
-    address = models.TextField()
+    address = models.CharField(max_length=20)
     order_date_time = models.DateTimeField()
-    payment = models.TextField()
+    payment = models.CharField(max_length=20)
     delivered_date_time = models.DateTimeField()
-    deliver_type = models.TextField()
-    status = models.TextField()
+    deliver_type = models.CharField(max_length=20)
+    status = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'PURCHASE_ORDER'
