@@ -35,6 +35,7 @@ class Order(models.Model):
     class Meta:
         db_table = 'PURCHASE_ORDER'
 
+
 class LineItem(models.Model):
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE, db_column='order_id')
     type_id = models.ForeignKey(Product, on_delete=models.CASCADE, db_column='type_id')
@@ -60,16 +61,18 @@ def get_line_item_by_order(order_id):
     ]
     return result
 
+
 def get_price_of_order(order_id):
     with connections['httcs'].cursor() as cursor:
-        cursor.execute( "SELECT  sum(P.price*L.quantity) AS price_of_order " + 
-                        "FROM  PURCHASE_ORDER O, LINE_ITEM L, PRODUCT P " + 
-                        "WHERE O.order_id = L.order_id AND L.type_id = P.type_id " +
-                        "AND O.order_id = %s", [order_id])
+        cursor.execute("SELECT  sum(P.price*L.quantity) AS price_of_order " +
+                       "FROM  PURCHASE_ORDER O, LINE_ITEM L, PRODUCT P " +
+                       "WHERE O.order_id = L.order_id AND L.type_id = P.type_id " +
+                       "AND O.order_id = %s", [order_id])
         result = dictfetchall(cursor)
         price = result[0]['price_of_order']
     print(price)
     return result
+
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"

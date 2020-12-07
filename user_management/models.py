@@ -16,12 +16,13 @@ def genderValidator(value):
 class User(models.Model):
     alphanumericValidator = RegexValidator(r'^[0-9a-zA-Z_]*$', 'Only alphanumeric characters are allowed.')
 
-    user_id = models.TextField(
-        primary_key=True, validators=[MinLengthValidator(3), MaxLengthValidator(12), alphanumericValidator])
+    user_id = models.CharField(
+        max_length=22, primary_key=True, validators=[MinLengthValidator(3), alphanumericValidator])
     address = models.TextField()
-    gender = models.TextField(validators=[genderValidator])
-    name = models.TextField(validators=[MinLengthValidator(1), MaxLengthValidator(20), alphanumericValidator])
-    password = models.TextField(validators=[MinLengthValidator(8), MaxLengthValidator(16), alphanumericValidator])
+    gender = models.CharField(max_length=1, validators=[genderValidator])
+    name = models.CharField(max_length=20, validators=[MinLengthValidator(1), alphanumericValidator])
+    password = models.CharField(
+        max_length=16, validators=[MinLengthValidator(8), alphanumericValidator])
     user_type = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(3)])
 
     class Meta:

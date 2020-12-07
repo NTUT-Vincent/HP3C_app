@@ -46,6 +46,7 @@ class ProductSerializer(PolymorphicSerializer):
         Gpu: GpuSerializer
     }
 
+
 class ManageSerializers(serializers.ModelSerializer):
     class Meta:
         model = Manage

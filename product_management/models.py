@@ -19,7 +19,7 @@ def ProductTypeValidator(value):
 
 class Product(PolymorphicModel):
     type_id = models.TextField(primary_key=True)
-    brand = models.TextField(max_length=20)
+    brand = models.CharField(max_length=20)
     quantity = models.PositiveBigIntegerField()
     price = models.PositiveBigIntegerField()
     type = models.TextField(validators=[ProductTypeValidator])
@@ -31,7 +31,7 @@ class Product(PolymorphicModel):
 
 
 class Motherboard(Product):
-    chip = models.TextField(max_length=10)
+    chip = models.CharField(max_length=10)
     size = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(3)])
     expansion = models.TextField()
 
@@ -40,7 +40,7 @@ class Motherboard(Product):
 
 
 class Ram(Product):
-    gen = models.TextField(max_length=10)
+    gen = models.CharField(max_length=10)
     size = models.TextField()
     speed = models.TextField()
     channel = models.PositiveIntegerField()
