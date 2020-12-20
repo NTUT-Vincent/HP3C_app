@@ -22,7 +22,7 @@ class Product(PolymorphicModel):
     brand = models.CharField(max_length=20)
     quantity = models.PositiveBigIntegerField()
     price = models.PositiveBigIntegerField()
-    type = models.TextField(validators=[ProductTypeValidator])
+    # type = models.TextField(validators=[ProductTypeValidator])
     product_manager = models.ManyToManyField(User, through='Manage')
     product_picture = models.TextField()
 

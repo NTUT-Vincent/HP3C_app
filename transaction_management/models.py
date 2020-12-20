@@ -19,13 +19,13 @@ class Coupon(models.Model):
 
 
 class Order(models.Model):
-    order_id = models.CharField(max_length = 30, primary_key=True)
+    order_id = models.AutoField(primary_key=True)
     order_customer = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='order_customer')
     order_staff = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='order_staff')
     coupon_code = models.ForeignKey(Coupon, on_delete=models.CASCADE, related_name='coupon_code')
-    address = models.CharField(max_length=20)
+    address = models.TextField()
     order_date_time = models.DateTimeField()
     payment = models.CharField(max_length=20)
     delivered_date_time = models.DateTimeField()
