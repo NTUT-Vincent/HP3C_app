@@ -1,5 +1,5 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db import models
+from django.db import models, connections
 
 # Create your models here.
 from polymorphic.models import PolymorphicModel
@@ -84,3 +84,27 @@ class Manage(models.Model):
         db_table = 'MANAGE'
         unique_together = ("Staff_id", "Ptype_id")
         models.UniqueConstraint(fields = ['Staff_id', 'Ptype_id'], name = 'Manage Key')
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
+def get_product_with_type(input_type):
+    with connections['httcs'].cursor() as cursor:
+        if input_type.lower() == 'cpu':
+            cursor.execute("SELECT * FROM PRODUCT JOIN CPU on type_id = product_ptr_id")
+        elif input_type.lower() == 'gpu':
+            cursor.execute("SELECT * FROM PRODUCT JOIN GPU on type_id = product_ptr_id")
+        elif input_type.lower() == 'motherboard':
+            cursor.execute("SELECT * FROM PRODUCT JOIN MB on type_id = product_ptr_id")
+        elif input_type.lower() == 'ram':
+            cursor.execute("SELECT * FROM PRODUCT JOIN RAM on type_id = product_ptr_id")
+        elif input_type.lower() == 'ssd':
+            cursor.execute("SELECT * FROM PRODUCT JOIN SSD on type_id = product_ptr_id")
+        
+        result = dictfetchall(cursor)
+    return result
