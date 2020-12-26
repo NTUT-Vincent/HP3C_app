@@ -85,7 +85,8 @@ def manage_detail(request, **kwarg):
     # """
     staff_id = request.GET.get('Staff_id')
     ptype_id = request.GET.get('Ptype_id')
-    print(staff_id)
+    # print(staff_id)
+    # print(ptype_id)
     
     try:
         manage = Manage.objects.get(Staff_id = staff_id, Ptype_id=ptype_id)

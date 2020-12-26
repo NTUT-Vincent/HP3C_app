@@ -64,10 +64,8 @@ def get_line_item_by_order(order_id):
 
 def get_price_of_order(order_id):
     with connections['httcs'].cursor() as cursor:
-        cursor.execute("SELECT  sum(P.price*L.quantity) AS price_of_order " +
-                       "FROM  PURCHASE_ORDER O, LINE_ITEM L, PRODUCT P " +
-                       "WHERE O.order_id = L.order_id AND L.type_id = P.type_id " +
-                       "AND O.order_id = %s", [order_id])
+        cursor.execute("SELECT L.order_id, sum(P.price * L.quantity) AS price_of_order FROM LINE_ITEM L JOIN PRODUCT P ON L.type_id = P.type_id WHERE L.order_id = %s", [order_id])
+        # cursor.excute()
         result = dictfetchall(cursor)
         price = result[0]['price_of_order']
     print(price)

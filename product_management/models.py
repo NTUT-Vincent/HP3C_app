@@ -96,15 +96,15 @@ def dictfetchall(cursor):
 def get_product_with_type(input_type):
     with connections['httcs'].cursor() as cursor:
         if input_type.lower() == 'cpu':
-            cursor.execute("SELECT * FROM PRODUCT JOIN CPU on type_id = product_ptr_id")
+            cursor.execute("SELECT * FROM PRODUCT_CPU")
         elif input_type.lower() == 'gpu':
-            cursor.execute("SELECT * FROM PRODUCT JOIN GPU on type_id = product_ptr_id")
+            cursor.execute("SELECT * FROM PRODUCT_GPU")
         elif input_type.lower() == 'motherboard':
-            cursor.execute("SELECT * FROM PRODUCT JOIN MB on type_id = product_ptr_id")
+            cursor.execute("SELECT * FROM PRODUCT_MB")
         elif input_type.lower() == 'ram':
-            cursor.execute("SELECT * FROM PRODUCT JOIN RAM on type_id = product_ptr_id")
+            cursor.execute("SELECT * FROM PRODUCT_RAM")
         elif input_type.lower() == 'ssd':
-            cursor.execute("SELECT * FROM PRODUCT JOIN SSD on type_id = product_ptr_id")
+            cursor.execute("SELECT * FROM PRODUCT_SSD")
         
         result = dictfetchall(cursor)
     return result
