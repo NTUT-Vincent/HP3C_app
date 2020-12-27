@@ -6,7 +6,7 @@ from django.db import connection
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser
 
-from product_management.models import Product, Manage, get_product_with_type
+from product_management.models import Product, Manage, get_product_with_type, get_sales_ranking
 from product_management.serializers import ProductSerializer, ManageSerializers
 
 
@@ -114,4 +114,10 @@ def manage_detail(request, **kwarg):
 def product_list_with_type(request, product_type):
     if request.method == 'GET':
         result = get_product_with_type(product_type)
+        return JsonResponse(result, safe=False)
+
+@csrf_exempt
+def product_sales_ranking(request):
+    if request.method == 'GET':
+        result = get_sales_ranking()
         return JsonResponse(result, safe=False)

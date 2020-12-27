@@ -108,3 +108,14 @@ def get_product_with_type(input_type):
         
         result = dictfetchall(cursor)
     return result
+
+def get_sales_ranking():
+    with connections['httcs'].cursor() as cursor:
+        cursor.execute('SELECT 	L.type_id, sum(L.quantity) AS Sales_volume\
+                        FROM    LINE_ITEM L\
+                        WHERE 	L.type_id  IN ( SELECT  P.type_id\
+											    FROM	PRODUCT P)\
+                        GROUP BY L.type_id\
+                        ORDER BY Sales_volume DESC;')
+        result = dictfetchall(cursor)
+    return result

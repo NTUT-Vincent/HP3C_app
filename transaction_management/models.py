@@ -64,11 +64,14 @@ def get_line_item_by_order(order_id):
 
 def get_price_of_order(order_id):
     with connections['httcs'].cursor() as cursor:
-        cursor.execute("SELECT L.order_id, sum(P.price * L.quantity) AS price_of_order FROM LINE_ITEM L JOIN PRODUCT P ON L.type_id = P.type_id WHERE L.order_id = %s", [order_id])
-        # cursor.excute()
+        cursor.execute("SELECT L.order_id, sum(P.price * L.quantity * C.disc_value	) AS price_of_order\
+                        FROM  PRODUCT P JOIN LINE_ITEM L ON L.type_id = P.type_id " +    
+					   "JOIN PURCHASE_ORDER O ON L.order_id = O.order_id\
+						JOIN COUPON C ON O.coupon_code_id = C.pcode\
+                        WHERE L.order_id = 1")
         result = dictfetchall(cursor)
-        price = result[0]['price_of_order']
-    print(price)
+        result[0]['price_of_order'] = round(result[0]['price_of_order'])
+    print(result)
     return result
 
 
