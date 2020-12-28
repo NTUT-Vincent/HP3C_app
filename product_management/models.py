@@ -119,3 +119,12 @@ def get_sales_ranking():
                         ORDER BY Sales_volume DESC;')
         result = dictfetchall(cursor)
     return result
+
+def search_product(search_string):
+    with connections['httcs'].cursor() as cursor:
+        cursor.execute('SELECT * \
+                        FROM	PRODUCT P\
+                        WHERE P.type_id like \'%' + search_string + '%\'')
+        result = dictfetchall(cursor)
+    return result
+

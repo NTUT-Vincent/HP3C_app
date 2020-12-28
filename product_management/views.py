@@ -6,7 +6,7 @@ from django.db import connection
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser
 
-from product_management.models import Product, Manage, get_product_with_type, get_sales_ranking
+from product_management.models import Product, Manage, get_product_with_type, get_sales_ranking, search_product
 from product_management.serializers import ProductSerializer, ManageSerializers
 
 
@@ -120,4 +120,10 @@ def product_list_with_type(request, product_type):
 def product_sales_ranking(request):
     if request.method == 'GET':
         result = get_sales_ranking()
+        return JsonResponse(result, safe=False)
+
+@csrf_exempt
+def product_search(request, search_string):
+    if request.method == 'GET':
+        result = search_product(search_string)
         return JsonResponse(result, safe=False)
