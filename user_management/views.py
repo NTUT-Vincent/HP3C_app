@@ -2,7 +2,7 @@
 from rest_framework import viewsets, generics
 
 from user_management.serializers import UserSerializers
-from user_management.models import User
+from user_management.models import User, get_user_with_id_and_password
 
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -59,3 +59,17 @@ def user_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return HttpResponse(status=204)
+
+@csrf_exempt
+def user_login(request, id, password):
+    """
+    List all code User, or create a new snippet.
+    """
+    if request.method == 'GET':
+        user_id = 'staff001'
+        user = get_user_with_id_and_password(id, password)
+        print(user)
+        return JsonResponse(user, safe=False)
+
+   
+

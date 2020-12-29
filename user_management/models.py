@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator, MinLengthValidator, \
     MaxLengthValidator
-from django.db import models
+from django.db import models, connections
 
 
 # Create your models here.
@@ -27,3 +27,19 @@ class User(models.Model):
 
     class Meta:
         db_table = 'USER'
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
+def get_user_with_id_and_password(user_id, password):
+    with connections['httcs'].cursor() as cursor:
+        cursor.execute("SELECT U.* FROM USER U WHERE U.user_id = '" + user_id + "'AND U.password = '" + password + "';")
+        result = dictfetchall(cursor)
+    print(user_id)
+    print(password)
+    return result

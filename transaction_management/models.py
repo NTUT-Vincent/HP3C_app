@@ -70,6 +70,13 @@ def get_price_of_order(order_id):
     print(result)
     return result
 
+def get_order_of_user(user_id):
+    with connections['httcs'].cursor() as cursor:
+        cursor.execute("SELECT * FROM ORDER_WITH_PRICE O WHERE O.order_customer_id = %s", [user_id])
+        result = dictfetchall(cursor)
+        # result[0]['price'] = round(result[0]['price'])
+    print(result)
+    return result
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"
