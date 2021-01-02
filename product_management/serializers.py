@@ -3,7 +3,7 @@ from rest_polymorphic.serializers import PolymorphicSerializer
 
 from product_management.models import Motherboard, Ram, Ssd, Cpu, Gpu, Manage, Product
 
-productFields = ['type_id', 'brand', 'quantity', 'price', 'product_picture']
+productFields = ['type_id', 'brand', 'quantity', 'price', 'product_picture', 'available']
 
 
 class MotherboardSerializer(serializers.ModelSerializer):

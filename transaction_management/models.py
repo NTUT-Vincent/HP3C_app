@@ -78,6 +78,16 @@ def get_order_of_user(user_id):
     print(result)
     return result
 
+def get_revenue(start_date, end_date):
+    with connections['httcs'].cursor() as cursor:
+        cursor.execute("SELECT sum(O.price) AS revenue\
+                        FROM ORDER_WITH_PRICE O \
+                        WHERE O.order_date_time BETWEEN %s and %s", [start_date, end_date])
+        result = dictfetchall(cursor)
+        result[0]['revenue'] = round(result[0]['revenue'])
+    print(result)
+    return result
+
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"
     columns = [col[0] for col in cursor.description]

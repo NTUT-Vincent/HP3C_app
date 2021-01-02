@@ -68,7 +68,12 @@ def user_login(request, id, password):
     if request.method == 'GET':
         user_id = 'staff001'
         user = get_user_with_id_and_password(id, password)
-        print(user)
+        if len(user) == 0:
+            response = {'message': 'login failed'}
+            return JsonResponse(response, status=401)
+        # for user_detail in user:
+        user = user[0]
+        user['message'] = 'Login successfully'
         return JsonResponse(user, safe=False)
 
    

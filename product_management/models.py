@@ -25,6 +25,7 @@ class Product(PolymorphicModel):
     # type = models.TextField(validators=[ProductTypeValidator])
     product_manager = models.ManyToManyField(User, through='Manage')
     product_picture = models.TextField()
+    available = models.BooleanField()
 
     class Meta:
         db_table = 'PRODUCT'
@@ -114,7 +115,8 @@ def get_sales_ranking():
         cursor.execute('SELECT 	L.type_id, sum(L.quantity) AS Sales_volume\
                         FROM    LINE_ITEM L\
                         WHERE 	L.type_id  IN ( SELECT  P.type_id\
-											    FROM	PRODUCT P)\
+											    FROM	PRODUCT P\
+                                                WHERE   P.available = true)\
                         GROUP BY L.type_id\
                         ORDER BY Sales_volume DESC;')
         result = dictfetchall(cursor)

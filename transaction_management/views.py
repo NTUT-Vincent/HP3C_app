@@ -6,7 +6,7 @@ from django.db import connections
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-from transaction_management.models import Coupon, Order, LineItem, get_line_item_by_order, get_price_of_order, get_order_of_user
+from transaction_management.models import Coupon, Order, LineItem, get_line_item_by_order, get_price_of_order, get_order_of_user, get_revenue
 from transaction_management.serializers import CouponSerializers, OrderSerializers, LineItemSerializers
 
 
@@ -143,6 +143,14 @@ def get_order_list_by_user(request, user_id):
     if request.method == 'GET':
         order = get_order_of_user(user_id)
         return JsonResponse(order, safe=False)
+
+@csrf_exempt
+def get_revenue_by_date(request, start_date, end_date):
+
+    if request.method == 'GET':
+        price = get_revenue(start_date, end_date)
+        print(type(price))
+        return JsonResponse(price, safe=False)
    
 
 
