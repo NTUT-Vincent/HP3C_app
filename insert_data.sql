@@ -99,12 +99,12 @@ INSERT INTO PRODUCT(type_id, brand, quantity, price, polymorphic_ctype_id, produ
 INSERT INTO SSD(product_ptr_id, interface, size, speed) VALUES('Transcend PCIe SSD 220S 512GB', 1, '512GB', '3,500MB/s');
 
 -- insert coupon
-INSERT INTO COUPON(pcode, disc_value, restrict, type, coupon_staff_id) VALUES('coupon0001', 0.95, 'no restrict', 1, 'staff0001');
-INSERT INTO COUPON(pcode, disc_value, restrict, type, coupon_staff_id) VALUES('coupon0002', 0.85, 'no restrict', 2, 'staff0002');
-INSERT INTO COUPON(pcode, disc_value, restrict, type, coupon_staff_id) VALUES('coupon0003', 0.95, 'no restrict', 1, 'staff0001');
-INSERT INTO COUPON(pcode, disc_value, restrict, type, coupon_staff_id) VALUES('coupon0004', 0.95, 'no restrict', 1, 'staff0010');
-INSERT INTO COUPON(pcode, disc_value, restrict, type, coupon_staff_id) VALUES('coupon0005', 0.75, 'no restrict', 3, 'staff0005');
-INSERT INTO COUPON(pcode, disc_value, restrict, type, coupon_staff_id) VALUES('coupon0006', 0.55, 'no restrict', 5, 'staff0012');
+INSERT INTO COUPON(pcode, name, disc_value, restrict, type, coupon_staff_id, start_date, end_date) VALUES('coupon0001', '95% off', 0.95, 'no restrict', 1, 'staff0001', '2020-12-01 10:22:00', '2020-12-30 10:22:00');
+INSERT INTO COUPON(pcode, name, disc_value, restrict, type, coupon_staff_id, start_date, end_date) VALUES('coupon0002', '85% off', 0.85, 'no restrict', 2, 'staff0002', '2020-12-01 10:22:00', '2020-12-25 10:22:00');
+INSERT INTO COUPON(pcode, name, disc_value, restrict, type, coupon_staff_id, start_date, end_date) VALUES('coupon0003', '95% off', 0.95, 'no restrict', 1, 'staff0001', '2020-12-01 10:22:00', '2020-12-12 10:22:00');
+INSERT INTO COUPON(pcode, name, disc_value, restrict, type, coupon_staff_id, start_date, end_date) VALUES('coupon0004', '95% off', 0.95, 'no restrict', 1, 'staff0010', '2021-01-01 10:22:00', '2021-01-30 10:22:00');
+INSERT INTO COUPON(pcode, name, disc_value, restrict, type, coupon_staff_id, start_date, end_date) VALUES('coupon0005', '75% off', 0.75, 'no restrict', 3, 'staff0005', '2021-01-01 10:22:00', '2021-01-30 10:22:00');
+INSERT INTO COUPON(pcode, name, disc_value, restrict, type, coupon_staff_id, start_date, end_date) VALUES('coupon0006', '55% off', 0.55, 'no restrict', 5, 'staff0012', '2021-01-01 10:22:00', '2021-01-30 10:22:00');
 
 -- insert ORDER
 INSERT INTO PURCHASE_ORDER(order_id, address, delivered_date_time, deliver_type, status, coupon_code_id, order_customer_id, order_staff_id, payment, order_date_time) VALUES(1, '1, Sec. 3, Zhongxiao E. Rd., Taipei 10608 Taiwan', '2020-12-01 10:22:00', 'Home delivery', 'delivering', 'coupon0001', 'customer0001', 'staff0001', 'credit card', '2020-12-01 10:22:00');

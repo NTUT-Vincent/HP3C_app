@@ -149,7 +149,6 @@ def get_revenue_by_date(request, start_date, end_date):
 
     if request.method == 'GET':
         price = get_revenue(start_date, end_date)
-        print(type(price))
         return JsonResponse(price, safe=False)
    
 

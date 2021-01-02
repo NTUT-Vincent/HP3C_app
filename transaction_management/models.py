@@ -8,11 +8,14 @@ from product_management.models import Product
 
 class Coupon(models.Model):
     pcode = models.CharField(max_length=30, primary_key=True)
+    name = models.CharField(max_length = 20)
     coupon_staff = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='coupon_staff')
     type = models.CharField(max_length=20)
     disc_value = models.FloatField()
     restrict = models.TextField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
 
     class Meta:
         db_table = 'COUPON'

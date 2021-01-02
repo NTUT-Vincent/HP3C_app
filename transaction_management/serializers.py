@@ -7,7 +7,7 @@ from user_management.models import User
 class CouponSerializers(serializers.ModelSerializer):
     class Meta:
         model = Coupon
-        fields = ['pcode', 'coupon_staff', 'type', 'disc_value', 'restrict']
+        fields = ['pcode', 'name','coupon_staff', 'type', 'disc_value', 'restrict', 'start_date', 'end_date']
 
 
 class OrderSerializers(serializers.ModelSerializer):
