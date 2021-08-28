@@ -6,6 +6,7 @@ urlpatterns = [
     path('coupon/', views.coupon_list),
     path('coupon/id/<str:pk>/', views.coupon_detail),
     path('order/', views.order_list),
+    path('order_post/', views.order_json_post),
     path('order/id/<str:pk>/', views.order_detail),
     path('order/user/<str:user_id>/', views.get_order_list_by_user),
     path('order/price/<str:order_id>/', views.get_order_price),

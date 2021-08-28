@@ -2,6 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.db import connections
 
+from django.utils import timezone
+
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -73,6 +75,16 @@ def order_list(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+
+@csrf_exempt
+def order_json_post(request):
+    """
+    List all code User, or create a new snippet.
+    """
+    if request.method == 'POST':
+        order = JSONParser().parse(request)
+        response = save_order(order)
+        return JsonResponse(response, status=201)
 
 @csrf_exempt
 def order_detail(request, pk):
@@ -151,5 +163,20 @@ def get_revenue_by_date(request, start_date, end_date):
         price = get_revenue(start_date, end_date)
         return JsonResponse(price, safe=False)
    
+
+def save_order(order_json):
+    order_id = -1
+    order = {'order_customer': order_json['order_customer'], 'address': order_json['address'], 'order_date_time': timezone.now(), 'payment': order_json['payment'], 'deliver_type': order_json['deliver_type'], 'status': order_json['status']}
+    order_serializer = OrderSerializers(data=order)
+    if order_serializer.is_valid():
+        order_serializer.save()
+        order_id = order_serializer.data['order_id']
+        for i in range(len(order_json['items'])):
+            line_item = {'order_id': order_id, 'type_id': order_json['items'][i]['type_id'], 'quantity': order_json['items'][i]['quantity']}
+            line_item_serializer = LineItemSerializers(data=line_item)
+            if line_item_serializer.is_valid():
+                line_item_serializer.save()
+                order_serializer.data.update(line_item_serializer.data) 
+    return order_serializer.data
 
 
