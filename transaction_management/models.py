@@ -79,6 +79,8 @@ def get_order_of_user(user_id):
         result = dictfetchall(cursor)
         # result[0]['price'] = round(result[0]['price'])
     print(result)
+    for x in result:
+        x['items'] = get_line_item_by_order(x['order_id'])
     return result
 
 def get_revenue(start_date, end_date):
